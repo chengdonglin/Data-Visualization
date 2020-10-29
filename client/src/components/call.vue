@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-10-28 14:47:38
+ * @LastEditTime: 2020-10-29 08:38:47
  * @LastEditors: chengDong
 -->
 <template>
@@ -27,21 +27,9 @@ export default {
             this.chartInstance = this.$echarts.init(this.$refs.call_ref)
         },
         // 获取服务器数据
-        getData() {
-            this.allData =  [
-                {
-                    "name":"总外呼量",
-                    value: 3927568
-                },
-                 {
-                    "name":"接通量",
-                    value: 272645
-                },
-                 {
-                    "name":"A类意向量",
-                    value: 5164
-                }
-            ]
+        async getData() {
+            const { data } = await this.$api.call.callData()
+            this.allData =  data
             this.updateChart()
         },
         // 更新图表

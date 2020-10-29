@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: chengDong
  * @Date: 2020-10-28 11:40:44
- * @LastEditTime: 2020-10-28 14:26:13
+ * @LastEditTime: 2020-10-29 08:35:11
  * @LastEditors: chengDong
  */
 import Vue from 'vue'
@@ -17,6 +17,7 @@ import './assets/css/global.less'
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
+process.env.NODE_ENV != 'production' && require('./mock/index')
 
 import api from './http/index'
 Vue.use(api)
