@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-11-03 16:08:05
+ * @LastEditTime: 2020-11-03 16:32:51
  * @LastEditors: chengDong
 -->
 <template>
@@ -65,10 +65,46 @@ export default {
                     type: 'category',
                     data: callName
                 },
+                // 鼠标移到x坐标轴背景变化
+                tooltip:{
+                    'trigger':"axis",
+                    axisPointer:{
+                        type: 'line',
+                        z:0,
+                        lineStyle:{
+                            width: 66,
+                            color:'#2D3443'
+                        }
+                    }
+                },
                 series:[
                     {
                         type: 'bar',
-                        data: callValues
+                        data: callValues,
+                        barWidth: 66, // 柱的宽度,
+                        // 文字控制
+                        label:{
+                            show: true,
+                            position: 'right',
+                            textStyle: 'white'
+                        },
+                        // 柱左上角,右上角, 左下角,右下角的圆角设置 
+                        itemStyle:{
+                            barBorderRadius: [0,33,33,0],
+                            // 指明颜色渐变的方向  0,0,1,0 从左往右渐变
+                            color: new this.$echarts.graphic.LinearGradient(0,0,1,0,[
+                                  // 百分之0状态下的颜色值
+                                {
+                                    offset: 0,
+                                    color: '#5052EE'
+                                },
+                                // 百分之百状态下的颜色值
+                                {
+                                    offset: 1,
+                                    color: '#AB6EE5'
+                                }
+                            ])
+                        }
                     }
                 ]
             }
