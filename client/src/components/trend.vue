@@ -2,15 +2,15 @@
  * @Description: 趋势图
  * @Author: chengDong
  * @Date: 2020-11-04 19:08:24
- * @LastEditTime: 2020-11-05 15:24:52
+ * @LastEditTime: 2020-11-05 15:43:59
  * @LastEditors: chengDong
 -->
 <template>
   <div class="com-container">
-      <div class="title">
-          <span> {{ showTitle }}</span>
-          <span class="iconfont title-icon" @click="showChoice = !showChoice">^</span>
-          <div class="select-con"  v-show="showChoice">
+      <div class="title" :style="comStyle">
+          <span> {{ '| ' + showTitle }}</span>
+          <span class="iconfont title-icon" @click="showChoice = !showChoice"  :style="comStyle">^</span>
+          <div class="select-con"  v-show="showChoice" :style="marginStyle">
               <div class="select-item" v-for="item in selectType" :key="item.key" @click="handleSelect(item.key)">
                   {{item.text}}
               </div>
@@ -29,6 +29,7 @@ export default {
             allData: null, //服务器所有的数据
             showChoice: false,
             choiceType: 'map',
+            titleFontSize: 0
         }
     },
     computed: {
@@ -46,6 +47,17 @@ export default {
                 return ""
             } else {
                 return this.allData[this.choiceType].title
+            }
+        },
+        // 设置标题样式
+        comStyle() {
+            return {
+                fontSize: this.titleFontSize + 'px'
+            }
+        },
+        marginStyle() {
+            return {
+                marginLeft: this.titleFontSize / 2 + 'px'
             }
         }
     },
@@ -79,7 +91,6 @@ export default {
             this.chartInstance.setOption(initOption)
         },
         async getData() {
-            console.log('111')
             const {data: ret} = await this.$api.trend.trendData()
             this.allData = ret
             this.updateChart()
@@ -143,7 +154,17 @@ export default {
             this.chartInstance.setOption(dataOption)
         },
         screenAdapter() {
-            const adapterOption = {}
+            this.titleFontSize = this.$refs.trend_ref.offsetWidth / 100 * 3.6
+            const adapterOption = {
+                legend:{
+                    itemWidth: this.titleFontSize,
+                    itemHeight: this.titleFontSize,
+                    itemGap: this.titleFontSize,
+                    textStyle:{
+                        fontSize: this.titleFontSize / 2 
+                    }
+                }
+            }
             this.chartInstance.setOption(adapterOption)
             this.chartInstance.resize()
         },
@@ -175,6 +196,9 @@ export default {
     .title-icon {
         margin-left: 10px;
         cursor: pointer;
+    }
+    .select-con {
+        background-color: #222733
     }
 }
 </style>
