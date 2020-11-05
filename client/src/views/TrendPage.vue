@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: chengDong
  * @Date: 2020-11-04 19:08:50
- * @LastEditTime: 2020-11-04 19:12:32
+ * @LastEditTime: 2020-11-04 19:31:16
  * @LastEditors: chengDong
 -->
 <template>
@@ -12,24 +12,10 @@
 </template>
 
 <script>
-import Trend from '@/components/trend'
+import Trend from '@/components/trend.vue'
 export default {
     components: {
         trend: Trend
-    },
-    data () {
-        return {
-            
-        }
-    },
-    methods: {
-        
-    },
-    mounted () {
-        
-    },
-    destroyed () {
-        
     }
 }
 </script>

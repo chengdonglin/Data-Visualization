@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-11-03 17:23:52
+ * @LastEditTime: 2020-11-04 19:34:51
  * @LastEditors: chengDong
 -->
 <template>
@@ -98,6 +98,7 @@ export default {
         // 获取服务器数据
         async getData() {
             const { data } = await this.$api.call.callData()
+            console.log(data)
             this.allData =  data
             this.updateChart()
         },
@@ -154,9 +155,9 @@ export default {
            this.chartInstance.resize()
         }
     },
-    mounted () {
+    async mounted () {
         this.initChart()
-        this.getData()
+        await this.getData()
         window.addEventListener('resize',this.screenAdapter)
         // 页面加载完成, 主动进行屏幕适配
         this.screenAdapter()
