@@ -119,7 +119,19 @@
         categoryAxis: axisCommon(),
 
         line: {
-            symbol: 'circle'
+            symbol: 'circle',
+            itemStyle:{
+                normal:{
+                    borderWidth: "4"
+                }
+            },
+            lineStyle:{
+                normal:{
+                    width: "3"
+                }
+            },
+            "symbolSize": 0,
+            "smooth": true
         },
         graph: {
             color: colorPalette
