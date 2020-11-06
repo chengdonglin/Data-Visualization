@@ -2,7 +2,7 @@
  * @Description: 中国地图
  * @Author: chengDong
  * @Date: 2020-11-06 09:04:00
- * @LastEditTime: 2020-11-06 14:56:50
+ * @LastEditTime: 2020-11-06 15:01:09
  * @LastEditors: chengDong
 -->
 <template>
@@ -62,7 +62,24 @@ export default {
             this.updateChart()
         },
         screenAdapter() {
-
+            const titleFontSize = this.$refs.map_ref.offsetWidth / 100 * 3.6
+            const adapterOption = {
+                title: {
+                    textStyle: {
+                        fontSize : titleFontSize
+                    }
+                },
+                legend:{
+                    itemWidth: titleFontSize / 2,
+                    itemHeight: titleFontSize / 2,
+                    itemGap: titleFontSize / 2,
+                    textStyle: {
+                        fontSize: titleFontSize / 2
+                    } 
+                }
+            }
+            this.chartInstance.setOption(adapterOption)
+            this.chartInstance.resize()
         },
         updateChart(){
             // 处理图表需要的数据
