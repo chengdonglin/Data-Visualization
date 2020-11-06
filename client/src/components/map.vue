@@ -2,22 +2,24 @@
  * @Description: 中国地图
  * @Author: chengDong
  * @Date: 2020-11-06 09:04:00
- * @LastEditTime: 2020-11-06 15:01:09
+ * @LastEditTime: 2020-11-06 15:43:23
  * @LastEditors: chengDong
 -->
 <template>
-  <div class="com-container">
+  <div class="com-container" @dblclick="revertMap">
       <div class="com-charts" ref="map_ref"></div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { getProvinceMapInfo } from '@/utils/map_utils'
 export default {
     data () {
         return {
             chartInstance: null,
-            allData: null
+            allData: null,
+            mapData : {}
         }
     },
     computed: {
@@ -55,6 +57,22 @@ export default {
                 }
             }
             this.chartInstance.setOption(initOption)
+            // 地图点击事件
+            this.chartInstance.on('click',async arg => {
+                // arg.name 是地图省份
+                const provinceInfo = getProvinceMapInfo(arg.name)
+                // 地图省份矢量数据
+                if(!this.mapData[provinceInfo.key]) {
+                    const { data: ret} = await axios.get('http://localhost:8999' + provinceInfo.path)
+                    this.$echarts.registerMap(provinceInfo.key, ret)
+                    this.mapData[provinceInfo.key] = ret
+                }
+                this.chartInstance.setOption({
+                    geo: {
+                        map: provinceInfo.key
+                    }
+                })
+            })
         },
         async getData() {
             const { data: ret} = await this.$api.map.mapData()
@@ -106,6 +124,14 @@ export default {
                 series: seriesArr
             }
             this.chartInstance.setOption(dataOption)
+        },
+        revertMap() {
+            const revertOption = {
+                geo: {
+                    map: 'china'
+                }
+            }
+            this.chartInstance.setOption(revertOption)
         }
     },
     mounted () {
