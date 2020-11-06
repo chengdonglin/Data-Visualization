@@ -2,7 +2,7 @@
  * @Description: 中国地图
  * @Author: chengDong
  * @Date: 2020-11-06 09:04:00
- * @LastEditTime: 2020-11-06 14:48:22
+ * @LastEditTime: 2020-11-06 14:56:50
  * @LastEditors: chengDong
 -->
 <template>
@@ -30,9 +30,28 @@ export default {
             const {data: mapData} = await axios.get('http://localhost:8999/static/map/china.json')
             this.$echarts.registerMap('china', mapData)
             const initOption = {
+                // 标题显示
+                title: {
+                    text: "| 商家分布图",
+                    left: 20,
+                    top: 20
+                },
+                // 地图位置和颜色
                 geo: {
                     type: 'map',
-                    map: 'china'
+                    map: 'china',
+                    top: '5%',
+                    bottom: '5%',
+                    itemStyle: {
+                        areaColor: '#2E72BF',
+                        borderColor: '#333'
+                    }
+                },
+                // 图例控制
+                legend:{
+                    left: '5%',
+                    bottom: '5%',
+                    orient: 'vertical'
                 }
             }
             this.chartInstance.setOption(initOption)
@@ -56,7 +75,11 @@ export default {
                     type: 'effectScatter',
                     coordinateSystem: 'geo',
                     name: item.name,
-                    data: item.children
+                    data: item.children,
+                    rippleEffect: {
+                        scale:5,
+                        brushType: 'stroke'
+                    }
                 }
             })
             const dataOption = {
