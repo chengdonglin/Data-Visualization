@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-11-09 16:38:45
+ * @LastEditTime: 2020-11-09 16:41:38
  * @LastEditors: chengDong
 -->
 <template>
@@ -36,7 +36,12 @@ export default {
                     {
                         type: 'bar'
                     }
-                ]
+                ],
+                title: {
+                    text: '| 地区销售排行',
+                    left: 20,
+                    top: 20
+                }
             }
             this.chartInstance.setOption(initOption)
         },
