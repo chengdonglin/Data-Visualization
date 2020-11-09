@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-11-09 16:41:38
+ * @LastEditTime: 2020-11-09 16:44:04
  * @LastEditors: chengDong
 -->
 <template>
@@ -41,6 +41,13 @@ export default {
                     text: '| 地区销售排行',
                     left: 20,
                     top: 20
+                },
+                grid: {
+                    top: '40%',
+                    left: '5%',
+                    bottom: '5%',
+                    right: '5%',
+                    containLabel: true
                 }
             }
             this.chartInstance.setOption(initOption)
