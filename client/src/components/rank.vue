@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-11-09 16:44:04
+ * @LastEditTime: 2020-11-10 11:28:21
  * @LastEditors: chengDong
 -->
 <template>
@@ -48,6 +48,9 @@ export default {
                     bottom: '5%',
                     right: '5%',
                     containLabel: true
+                },
+                tooltip : {
+                    show: true
                 }
             }
             this.chartInstance.setOption(initOption)
@@ -63,6 +66,11 @@ export default {
         },
         // 更新图表
         updateChart() {
+            const colorArr = [
+                ['#0BA82C','#4FF778'],
+                ['#2E72BF','#23E5E5'],
+                ['#5052EE','#AB6EE5']
+            ]
             const provinceArr = this.allData.map(item => {
                 return item.name
             })
@@ -73,7 +81,29 @@ export default {
                 },
                 series: [
                     {
-                        data: valueArr
+                        data: valueArr,
+                        itemStyle: {
+                            color: arg => {
+                                let targetColorArr= colorArr[0]
+                                if(arg.value >= 300) {
+                                    targetColorArr = colorArr[0]
+                                } else if (arg.value >= 200) {
+                                    targetColorArr = colorArr[1]
+                                } else {
+                                    targetColorArr = colorArr[2]
+                                }
+                                return new this.$echarts.graphic.LinearGradient(0,1,0,0,[
+                                    {
+                                        offset: 0,
+                                        color: targetColorArr[0]
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: targetColorArr[1]
+                                    }
+                                ])
+                            }
+                        }
                     }
                 ]
             }
