@@ -2,15 +2,15 @@
  * @Description: 
  * @Author: chengDong
  * @Date: 2020-11-10 14:07:48
- * @LastEditTime: 2020-11-10 15:57:18
+ * @LastEditTime: 2020-11-10 16:39:20
  * @LastEditors: chengDong
 -->
 <template>
   <div class="com-container">
       <div class="com-charts" ref="hot_ref"></div>
-        <span class="iconfont arr_left" @click="toLeft">next</span>
-        <span class="iconfont arr_right" @click="toRight">up</span>
-        <span class="cat_name">{{ catTitle }}</span>
+        <span class="iconfont arr_left" @click="toLeft" :style="comStyle"> ← </span>
+        <span class="iconfont arr_right" @click="toRight" :style="comStyle"> → </span>
+        <span class="cat_name" :style="comStyle">{{ catTitle }}</span>
   </div>
 </template>
 
@@ -20,7 +20,8 @@ export default {
         return {
             chartInstance: null,
             allData: null,
-            currentIndex: 0
+            currentIndex: 0,
+            titleFontSize: 0
         }
     },
     computed: {
@@ -29,6 +30,11 @@ export default {
                     return ''
                 }
                 return this.allData[this.currentIndex].name
+            },
+            comStyle() {
+                return {
+                    fontSize: this.titleFontSize + 'px'
+                }
             }
     },
     mounted () {
@@ -46,7 +52,7 @@ export default {
             const initOption = {
                 title: {
                     text: '| 热销商品销售金额占比统计',
-                    left: 20,
+                    left: 40,
                     top: 20
                 },
                 series: [
@@ -121,7 +127,32 @@ export default {
             this.chartInstance.setOption(dataOption)
         },
         screenAdapter() {
-            const adapterOption = {}
+            this.titleFontSize = this.$refs.hot_ref.offsetWidth / 100 * 3.6
+            const adapterOption = {
+                // 标题大小
+                title: {
+                    textStyle: {
+                        fontSize: this.titleFontSize
+                    }
+                },
+                // 饼图大小和位置
+                series: [
+                    {
+                        radius: this.titleFontSize * 4.5,
+                        center: ['50%','60%']
+                    }
+                ],
+                // 图例大小
+                legend: {
+                    itemWidth: this.titleFontSize / 2,
+                    itemHeight: this.titleFontSize / 2,
+                    itemGap: this.titleFontSize / 2,
+                    textStyle: {
+                        fontSize: this.titleFontSize / 2
+                    },
+                    top: '15%'
+                }
+            }
             this.chartInstance.setOption(adapterOption)
             this.chartInstance.resize()
         },
@@ -148,7 +179,7 @@ export default {
     position: absolute;
     left: 10%;
     top: 50%;
-    transform: translateY(-80%);
+    transform: translateY(-50%);
     color: white;
   
 }
@@ -156,7 +187,7 @@ export default {
     position: absolute;
     right: 10%;
     top: 50%;
-    transform: translateY(-80%);
+    transform: translateY(-50%);
     cursor: pointer;
     color: white
 }
