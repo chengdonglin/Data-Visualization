@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-11-10 13:55:47
+ * @LastEditTime: 2020-11-10 13:59:24
  * @LastEditors: chengDong
 -->
 <template>
@@ -127,7 +127,22 @@ export default {
            this.chartInstance.resize()
         },
         screenAdapter() {
-           const adapterOption = {}
+            const titleFontSize = this.$refs.rank_ref.offsetWidth / 100 * 3.6
+           const adapterOption = {
+               title: {
+                   textStyle:{
+                       fontSize : titleFontSize
+                   }
+               },
+               series: [
+                   {
+                       barWidth: titleFontSize,
+                       itemStyle: {
+                           barBorderRadius: [0.5 * titleFontSize,0.5*titleFontSize,0,0]
+                       }
+                   }
+               ]
+           }
            this.chartInstance.setOption(adapterOption)
            this.chartInstance.resize() 
         },
