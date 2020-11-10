@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: chengDong
  * @Date: 2020-11-10 14:07:48
- * @LastEditTime: 2020-11-10 15:39:33
+ * @LastEditTime: 2020-11-10 15:48:34
  * @LastEditors: chengDong
 -->
 <template>
@@ -10,6 +10,7 @@
       <div class="com-charts" ref="hot_ref"></div>
         <span class="iconfont arr_left" @click="toLeft">next</span>
         <span class="iconfont arr_right" @click="toRight">up</span>
+        <span class="cat_name">{{ catTitle }}</span>
   </div>
 </template>
 
@@ -21,6 +22,14 @@ export default {
             allData: null,
             currentIndex: 0
         }
+    },
+    computed: {
+            catTitle() {
+                if(!this.allData) {
+                    return ''
+                }
+                return this.allData[this.currentIndex].name
+            }
     },
     mounted () {
         this.initChart()
@@ -116,6 +125,14 @@ export default {
     top: 50%;
     transform: translateY(-80%);
     cursor: pointer;
+    color: white
+}
+
+.cat_name {
+    position: absolute;
+    left: 80%;
+    bottom: 20px;
+    font-weight: bold;
     color: white
 }
 </style>
