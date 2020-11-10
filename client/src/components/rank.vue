@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-11-10 11:28:21
+ * @LastEditTime: 2020-11-10 13:52:40
  * @LastEditors: chengDong
 -->
 <template>
@@ -18,7 +18,10 @@ export default {
     data () {
         return {
             chartInstance: null,
-            allData: null
+            allData: null,
+            startValue: 0,
+            endValue: 9,
+            timerId: null
         }
     },
     methods: {
@@ -63,6 +66,7 @@ export default {
                 return b.value - a.value
             })
             this.updateChart()
+            this.startInterval()
         },
         // 更新图表
         updateChart() {
@@ -78,6 +82,11 @@ export default {
             const dataOption = {
                 xAxis: {
                     data: provinceArr
+                },
+                dataZoom: {
+                    show: false,
+                    startValue: this.startValue,
+                    endValue: this.endValue
                 },
                 series: [
                     {
@@ -115,6 +124,20 @@ export default {
            const adapterOption = {}
            this.chartInstance.setOption(adapterOption)
            this.chartInstance.resize() 
+        },
+        startInterval () {
+            if(this.timerId) {
+                clearInterval(this.timerId)
+            }
+            this.timerId = setInterval(() => {
+                this.startValue++
+                this.endValue++
+                if(this.endValue > this.allData.length -1) {
+                    this.startValue = 0
+                    this.endValue = 9
+                }
+                this.updateChart()
+            }, 3000);
         }
     },
     async mounted () {
@@ -126,6 +149,7 @@ export default {
     },
     destroyed () {
         window.removeEventListener('resize', this.screenAdapter)
+        clearInterval(this.timerId)
     }
 }
 </script>
