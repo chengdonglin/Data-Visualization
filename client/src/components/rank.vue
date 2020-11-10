@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-11-10 13:52:40
+ * @LastEditTime: 2020-11-10 13:55:47
  * @LastEditors: chengDong
 -->
 <template>
@@ -57,6 +57,12 @@ export default {
                 }
             }
             this.chartInstance.setOption(initOption)
+            this.chartInstance.on('mouseover', () => {
+                clearInterval(this.timerId)
+            })
+            this.chartInstance.on('mouseout',() => {
+                this.startInterval()
+            })
         },
         // 获取服务器数据
         async getData() {
