@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: chengDong
  * @Date: 2020-11-10 14:07:48
- * @LastEditTime: 2020-11-10 15:48:34
+ * @LastEditTime: 2020-11-10 15:57:18
  * @LastEditors: chengDong
 -->
 <template>
@@ -51,9 +51,40 @@ export default {
                 },
                 series: [
                     {
-                        type: 'pie'
+                        type: 'pie',
+                        label: {
+                            show: false // 隐藏文字
+                        },
+                        labelLine: {
+                            show: false // 隐藏线
+                        },
+                        emphasis: {
+                            label: {
+                                show: true // 高亮显示文字
+                            }
+                        }
                     }
-                ]
+                ],
+                // 图例形状和位置
+                legend: {
+                    top: '5%',
+                    icon: 'circle'
+                },
+                // 显示tooltip 控制显示内容
+                tooltip :{
+                    trigger: 'item',
+                    formatter: function(params) {
+                        let tipArray = []
+                        params.data.children.forEach((item) => {
+                            let childStr = `
+                            ${item.name}&nbsp;&nbsp;&nbsp;
+                            ${parseInt((item.value / params.value) * 100) + "%"}
+                            `
+                            tipArray.push(childStr)
+                        })
+                        return tipArray.join('<br/>')
+                    }
+                }
             }
             this.chartInstance.setOption(initOption)
         },
@@ -68,7 +99,9 @@ export default {
             const seriesData = this.allData[this.currentIndex].children.map(item => {
                 return {
                     value: item.value,
-                    name: item.name
+                    name: item.name,
+                    children: item.children
+                    // 当鼠标移入某个扇区的时候, 需要将该二级分类之下的三级分类数据进行展示增加 series 下饼图每一个扇区的数据
                 }
             })
             // 图例数据
