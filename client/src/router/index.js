@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: chengDong
  * @Date: 2020-10-28 11:40:44
- * @LastEditTime: 2020-11-11 14:06:16
+ * @LastEditTime: 2020-11-11 15:23:23
  * @LastEditors: chengDong
  */
 import Vue from 'vue'
@@ -13,6 +13,7 @@ import MapPage from '@/views/MapPage'
 import RankPage from '@/views/RankPage'
 import HotPage from '@/views/HotPage'
 import StockPage from '@/views/StockPage'
+import ScreenPage from '@/views/ScreenPage'
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,10 @@ const routes = [
   {
     path: '/stockPage',
     component: StockPage
+  },
+  {
+    path: '/screen',
+    component: ScreenPage
   }
 ]
 
