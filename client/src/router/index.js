@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: chengDong
  * @Date: 2020-10-28 11:40:44
- * @LastEditTime: 2020-11-10 14:34:53
+ * @LastEditTime: 2020-11-11 09:29:14
  * @LastEditors: chengDong
  */
 import Vue from 'vue'
@@ -12,6 +12,7 @@ import TrendPage from '@/views/TrendPage'
 import MapPage from '@/views/MapPage'
 import RankPage from '@/views/RankPage'
 import HotPage from '@/views/HotPage'
+import StockPage from '@/views/StockPage'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,10 @@ const routes = [
   {
     path:'/hotPage',
     component: HotPage
+  },
+  {
+    path:'/stockPage',
+    component: StockPage
   }
 ]
 
