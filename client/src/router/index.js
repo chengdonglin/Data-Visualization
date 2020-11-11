@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: chengDong
  * @Date: 2020-10-28 11:40:44
- * @LastEditTime: 2020-11-11 09:29:14
+ * @LastEditTime: 2020-11-11 14:06:16
  * @LastEditors: chengDong
  */
 import Vue from 'vue'
@@ -38,7 +38,7 @@ const routes = [
     component: HotPage
   },
   {
-    path:'/stockPage',
+    path: '/stockPage',
     component: StockPage
   }
 ]

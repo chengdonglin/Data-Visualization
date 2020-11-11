@@ -2,7 +2,7 @@
  * @Description: 外呼数据统计横向柱状图
  * @Author: chengDong
  * @Date: 2020-10-28 14:06:45
- * @LastEditTime: 2020-11-10 13:59:24
+ * @LastEditTime: 2020-11-11 14:06:36
  * @LastEditors: chengDong
 -->
 <template>

@@ -1,19 +1,17 @@
-<!--
- * @Description: 
- * @Author: chengDong
- * @Date: 2020-11-10 16:40:57
- * @LastEditTime: 2020-11-10 16:41:12
- * @LastEditors: chengDong
--->
 <template>
   <div class="com-page">
-
+      <stock />
   </div>
 </template>
 
 <script>
 import Stock from '@/components/stock'
 export default {
+    data () {
+        return {
+            
+        }
+    },
     components: {
         stock: Stock
     }
